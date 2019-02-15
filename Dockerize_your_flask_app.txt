@@ -1,5 +1,3 @@
-Welcome to the flask_app_into_docker wiki!
-
 Ok, here is an very simple instruction on how to install the docker on Ubuntu ( in my case 18.4) and get your simple Flask App running inside a docker container in just 15 min. Simply do this:
 
 For to install docker: $ sudo snap install docker
