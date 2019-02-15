@@ -1,0 +1,30 @@
+Welcome to the flask_app_into_docker wiki!
+
+Ok, here is an very simple instruction on how to install the docker on Ubuntu ( in my case 18.4) and get your simple Flask App running inside a docker container in just 15 min. Simply do this:
+
+For to install docker: $ sudo snap install docker
+
+Put all your application related files into a separate directory - in my case it's my_app/
+
+Don't forget to prepare requirements.txt file - see the file content example below: Flask==1.0.2 numpy==1.15.4 scikit-learn==0.20.2 scipy==1.1.0 .... etc.
+
+Create a file called Dockerfile and place it into the app directory - the content example is below ( typically it's sufficient, but of course it depends on your app specifics):
+
+FROM ubuntu:latest MAINTAINER Daria Shamrai 'dariavshamrai@gmail.com' RUN apt-get update -y RUN apt-get install -y python3 python3-pip python3-dev build-essential COPY . /app WORKDIR /app RUN pip3 install -r requirements.txt CMD python3 my_app.py
+
+Once ready, simply build your docker container: $ sudo docker build -t my_app:v0.1 my_app/
+
+For run your docker container with the app:
+
+$ sudo docker run -d -p 5000:5000 my_app:v0.1 (-d here detaches container running form the console and thus the container will be still running even the console window is closed) Here we assume that's it is all is done for development purposes and the container is running so far on your local machine ( not remote server)
+
+To check that your docker container is running: $ sudo docker ps
+
+Sometime things don't work well immediately and you may need to "debug" a bit...so you can enable all stdout and also run simply shell in docker container for to run some tests:
+
+a) To see all app outputs in the console: $sudo docker run -p 5000:5000 -a stdin -a stdout -i -t my_app:v0.1
+
+b) To run standard shell or bash: $sudo docker run -p 5000:5000 -a stdin -a stdout -i -t my_app:v0.1 sh
+
+Stop running docker container $ sudo docker stop [container id]
+(Note: for to figure out container id do: $ sudo docker ps -a)
