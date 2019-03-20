@@ -8,7 +8,14 @@ Don't forget to prepare requirements.txt file - see the file content example bel
 
 Create a file called Dockerfile and place it into the app directory - the content example is below ( typically it's sufficient, but of course it depends on your app specifics):
 
-FROM ubuntu:latest MAINTAINER Daria Shamrai 'dariavshamrai@gmail.com' RUN apt-get update -y RUN apt-get install -y python3 python3-pip python3-dev build-essential COPY . /app WORKDIR /app RUN pip3 install -r requirements.txt CMD python3 my_app.py
+FROM ubuntu:latest 
+MAINTAINER Daria Shamrai 'dariavshamrai@gmail.com' 
+RUN apt-get update -y 
+RUN apt-get install -y python3 python3-pip python3-dev build-essential 
+COPY . /app 
+WORKDIR /app 
+RUN pip3 install -r requirements.txt 
+CMD python3 my_app.py
 
 Once ready, simply build your docker container: $ sudo docker build -t my_app:v0.1 my_app/
 
